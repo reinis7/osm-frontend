@@ -40,18 +40,21 @@ export default function Navbar() {
   return (
     <div className="heading">
       <div className="search-box">
-        <input
-          type="text"
-          placeholder="Search location..."
-          value={searchText}
-          onChange={handleSearch}
-        />
+        <div>
+          <span>Search Location: </span>
+          <input
+            type="text"
+            placeholder="Search location..."
+            value={searchText}
+            onChange={handleSearch}
+          />
+        </div>
         {/* Show search suggestions */}
         {searchResults.length > 0 && (
           <ul className="search-results">
             {searchResults.map((location, index) => (
               <li key={index} onClick={() => handleLocationSelect(location)}>
-                {location.display_name}
+                {location.display_name} ({location.lon}, {location.lat})
               </li>
             ))}
           </ul>

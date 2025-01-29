@@ -1,7 +1,7 @@
 .map-wrap {
     position: relative;
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 50px);
 }
 
 .map {
@@ -11,7 +11,7 @@
 
 .coordinate-box {
     position: absolute;
-    bottom: 10px;
+    top: 10px;
     left: 10px;
     background: rgba(0, 0, 0, 0.6);
     color: #ffffff;
