@@ -3,6 +3,8 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './MapTiler.scss';
 
+const VITE_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080'
+
 const MapTiler = () => {
     const mapContainer = useRef(null);
     const map = useRef(null);
@@ -14,7 +16,7 @@ const MapTiler = () => {
     const DEFAULT_ZOOM = 5;
 
     // Your self-hosted tile server URL
-    const TILE_SERVER_URL = 'http://vertextcloudsystems.website:8080/styles/basic-preview/style.json';
+    const TILE_SERVER_URL = `${VITE_API_URL}/tiles/styles/basic-preview/style.json`;
 
     useEffect(() => {
         if (!mapContainer.current || map.current) return; // Prevent duplicate initialization
