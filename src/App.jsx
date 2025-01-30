@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.scss'
 import Navbar from './components/Navbar'
 import MapTiler from './components/MapTiler'
+import './App.scss'
+import { MapProvider } from '../context/MapContext'
 
 function App() {
 
   return (
-    <div className='App'>
-      <Navbar />
-      <MapTiler />
-    </div>
+    <MapProvider>
+      <div className='App'>
+        <Navbar />
+        <MapTiler />
+      </div>
+    </MapProvider>
   )
 }
 
