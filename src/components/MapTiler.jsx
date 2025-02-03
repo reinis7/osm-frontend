@@ -5,8 +5,46 @@ import { useMap } from '../../context/MapContext';
 
 
 const MapTiler = () => {
-    const { mapContainerRef, isLoaded, cursorCoords } = useMap(); // Get the map container reference
-   
+    const { mapRef, mapContainerRef, isLoaded, cursorCoords, handlePolygon } = useMap(); // Get the map container reference
+    const [isDrawing, setIsDrawing] = useState(false);
+
+    // Start drawing when Ctrl is pressed
+    const handleKeyDown = (event) => {
+        if (event.altKey) {
+            setIsDrawing(true);
+        }
+    };
+
+    // Stop drawing when Ctrl is released
+    const handleKeyUp = (event) => {
+        if (!event.altKey) setIsDrawing(false);
+    };
+    const handleMapClick = (event) => {
+        if (!isDrawing) return;
+
+        const { lng, lat } = event.lngLat;
+        handlePolygon({ lng, lat });
+
+        event.preventDefault();
+    };
+    console.log('[isDrawing]', isDrawing)
+
+
+
+
+    useEffect(() => {
+        if (!mapRef.current) return;
+
+        mapRef.current.on("click", handleMapClick);
+        window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("keyup", handleKeyUp);
+
+        return () => {
+            mapRef.current.off("click", handleMapClick);
+            window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keyup", handleKeyUp);
+        };
+    }, [mapRef.current, isDrawing]);
 
     return (
         <div className="map-wrap">
